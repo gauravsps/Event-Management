@@ -1,17 +1,41 @@
 "use client"
-
+import axios from "axios";
 import Link from "next/link";
 import { useState } from "react";
-
+import { useRouter } from 'next/navigation';
+import { toast } from "react-toastify";
 export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const router = useRouter();
 
-    const handleSubmit = (e: any) => {
+    const handleSubmit = async (e: any) => {
         e.preventDefault();
-        // Perform form submission or validation here
-        console.log('Email:', email);
-        console.log('Password:', password);
+        try {
+            const data = {
+                username: email,
+                password: password
+            }
+            const res = await fetch(`http://localhost:3000/auth/login`, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json, text/plain, */*',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+            // console.log(res, "Check Response");
+            const result = await res.json();
+            if (res.ok) {
+                toast.success("Success");
+                router.push('/home')
+            }
+            console.log(result, "Check Response");
+        } catch (err: any) {
+            alert(err.message)
+        }
+
+
     };
 
     return (
@@ -27,6 +51,7 @@ export default function Login() {
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             id="email"
                             type="email"
+                            required
                             placeholder="Enter your email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
@@ -40,6 +65,7 @@ export default function Login() {
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             id="password"
                             type="password"
+                            required
                             placeholder="Enter your password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
