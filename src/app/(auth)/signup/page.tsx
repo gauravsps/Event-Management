@@ -1,17 +1,43 @@
 "use client"
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 export default function Signup() {
-    const [name, setName] = useState('');
+    const router = useRouter()
+    const [fname, setfName] = useState('');
+    const [lname, setlName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [role, setRole] = useState('');
 
-    const handleSubmit = (e: any) => {
+    const handleSubmit = async (e: any) => {
         e.preventDefault();
-        // Perform form submission or validation here
+        const data = {
+            "firstName": fname,
+            "lastName": lname,
+            "email": email,
+            "password": password,
+            "role": role
+        }
+
+        const res = await fetch(`http://localhost:3000/auth/signup`, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+        console.log(res, "Check Response");
+        const result = await res.json();
+        if (res.ok) {
+            toast.success("Account Created, Please Login");
+            router.push('/login')
+        }
+
     };
 
     return (
@@ -24,15 +50,28 @@ export default function Signup() {
                 >
                     <div className="mb-4">
                         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
-                            Name
+                            First Name
                         </label>
                         <input
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             id="name"
                             type="text"
                             placeholder="Enter your name"
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
+                            value={fname}
+                            onChange={(e) => setfName(e.target.value)}
+                        />
+                    </div>
+                    <div className="mb-4">
+                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
+                            Last Name
+                        </label>
+                        <input
+                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            id="name"
+                            type="text"
+                            placeholder="Enter your name"
+                            value={lname}
+                            onChange={(e) => setlName(e.target.value)}
                         />
                     </div>
                     <div className="mb-4">
