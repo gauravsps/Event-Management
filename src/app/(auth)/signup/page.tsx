@@ -64,6 +64,7 @@ export default function Signup() {
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             id="name"
                             type="text"
+                            required
                             placeholder="Enter your name"
                             value={fname}
                             onChange={(e) => setfName(e.target.value)}
@@ -77,6 +78,7 @@ export default function Signup() {
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             id="name"
                             type="text"
+                            required
                             placeholder="Enter your name"
                             value={lname}
                             onChange={(e) => setlName(e.target.value)}
@@ -90,6 +92,7 @@ export default function Signup() {
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             id="email"
                             type="email"
+                            required
                             placeholder="Enter your email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
@@ -103,6 +106,7 @@ export default function Signup() {
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             id="password"
                             type="password"
+                            required
                             placeholder="Enter your password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
@@ -116,6 +120,7 @@ export default function Signup() {
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             id="role"
                             value={role}
+                            required
                             onChange={(e) => setRole(e.target.value)}
                         >
                             <option value="">Select a role</option>
