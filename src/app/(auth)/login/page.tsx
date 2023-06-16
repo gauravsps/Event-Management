@@ -4,6 +4,12 @@ import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from 'next/navigation';
 import { toast } from "react-toastify";
+import { setAuthToken } from "@/utils/auth";
+import { api } from "@/utils/api";
+interface LoginData {
+    username: string;
+    password: string;
+}
 export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -12,30 +18,19 @@ export default function Login() {
     const handleSubmit = async (e: any) => {
         e.preventDefault();
         try {
-            const data = {
+            const info: LoginData = {
                 username: email,
                 password: password
             }
-            const res = await fetch(`http://localhost:3000/auth/login`, {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json, text/plain, */*',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            });
-            // console.log(res, "Check Response");
-            const result = await res.json();
+            const res: any = await api({ path: '/auth/login', method: 'POST', body: info });
             if (res.ok) {
+                setAuthToken(res.data?.data?.token, res.data?.data?.user?.role);
                 toast.success("Success");
                 router.push('/home')
             }
-            console.log(result, "Check Response");
         } catch (err: any) {
-            alert(err.message)
+            toast.error(err.message);
         }
-
-
     };
 
     return (
