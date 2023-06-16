@@ -1,6 +1,6 @@
 "use client"
 
-import Sidebar from '@/components/Sidebar';
+import Sidebar from '@/components/sidebar';
 import { getAuthToken } from '@/utils/auth';
 import { useRouter } from 'next/navigation';
 import React, { useEffect } from 'react'
