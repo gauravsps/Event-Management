@@ -1,10 +1,13 @@
 "use client"
+import { getAuthToken } from "@/utils/auth";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 export default function Navbar() {
     const pathname = usePathname();
-    const regex = /\/eventlist(\/\w+)?/;
+    const token = getAuthToken();
+    const regex = /\/(eventlist(\/\w+)?|login|signup)/;
+   
     return (
         <div>
             <nav className="bg-gray-800">
