@@ -1,18 +1,28 @@
-'use client';
-import Link from "next/link";
+"use client"
 import { useRouter } from 'next/navigation';
+import Link from "next/link";
+import { getRole, removeAuthToken } from "@/utils/auth";
+import { useEffect, useState } from 'react';
 
+interface SidebarProps {
+    children: React.ReactNode;
 
-export default function Sidebar({ children }: any) {
-    const router = useRouter()
+}
 
+export default function Sidebar({ children }: SidebarProps) {
+    const router = useRouter();
+    const [role, setRole] = useState<any>('');
+    useEffect(() => {
 
+        const role = getRole();
+        setRole(role)
+    }, [])
     return (
         <div className="flex h-screen">
             {/* Sidebar */}
             <div className="bg-white text-gray-800 w-64 ">
                 <div className="p-4">
-                    <h1 className="text-lg font-semibold">Dashboard</h1>
+                    <h1 className="text-lg font-semibold px-4">Dashboard</h1>
                 </div>
                 <ul className="p-2 flex-grow">
                     <li className="py-2 px-4">
@@ -33,10 +43,10 @@ export default function Sidebar({ children }: any) {
                     </li>
                 </ul>
                 <div className="p-4">
-                    <p className="text-gray-500 text-xs mb-2">Logged in as admin</p>
+                    <p className="text-gray-500 text-xs mb-2 px-4">Logged in as {role}</p>
                     <button
-                        className="bg-blue-500 text-white hover:bg-blue-600 rounded-lg px-4 py-2 transition duration-300"
-                        onClick={() => router.push(`/`)}
+                        className="bg-blue-500 text-white hover:bg-blue-600 rounded-lg px-4 py-2 transition duration-300 mx-4"
+                        onClick={() => { router.push(`/`); removeAuthToken() }}
                     >
                         Logout
                     </button>

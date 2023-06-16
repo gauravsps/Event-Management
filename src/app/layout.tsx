@@ -1,4 +1,5 @@
-import Navbar from '../components/navbar'
+
+import Navbar from '@/components/Navbar';
 import './globals.css'
 import { Inter } from 'next/font/google'
 import { ToastContainer } from "react-toastify";
@@ -17,7 +18,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-
       <body className={inter.className}>
         <ToastContainer />
         <Navbar />

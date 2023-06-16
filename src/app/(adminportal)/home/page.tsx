@@ -1,14 +1,15 @@
-
 "use client"
-import Sidebar from "@/components/sidebar";
-import { useRouter } from "next/navigation";
-
+import CreateEvent from "@/components/CreateEvent";
 
 export default function Home() {
-    const router = useRouter();
-    return <div>
-        <Sidebar>
-           Event organizer page
-        </Sidebar>
-    </div>
+    
+
+    return (
+       <div>
+        <CreateEvent />
+       </div>
+    );
+
+
+
 }
