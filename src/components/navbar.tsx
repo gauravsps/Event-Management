@@ -1,7 +1,10 @@
+"use client"
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function Navbar() {
-    
+    const pathname = usePathname();
+    const regex = /\/eventlist(\/\w+)?/;
     return (
         <div>
             <nav className="bg-gray-800">
@@ -10,9 +13,12 @@ export default function Navbar() {
                         <h1 className="text-white text-xl font-bold">Event Management System</h1>
                     </div>
                     <div className="flex items-center">
-                        <Link href="/" className="text-white font-semibold py-2 px-4 border border-white rounded hover:bg-gray-700">
-                            Go to Main
-                        </Link>
+                        {
+                            regex.test(pathname) &&
+                            <Link href="/" className="text-white font-semibold py-2 px-4 border border-white rounded hover:bg-gray-700">
+                                Go to Main
+                            </Link>
+                        }
                     </div>
                 </div>
             </nav>
