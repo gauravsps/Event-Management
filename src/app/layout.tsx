@@ -1,5 +1,6 @@
 
-import Navbar from '@/components/Navbar';
+// import Navbar from '@/components/Comm';
+import Navbar from '@/components/CommanNav';
 import './globals.css'
 import { Inter } from 'next/font/google'
 import { ToastContainer } from "react-toastify";
