@@ -28,7 +28,7 @@ export default function EventLists({ item, index, from }: EventListsProps) {
                 <label className="text-gray-500 font-semibold">
                     Event Start Date:
                 </label>
-                <span className="text-lg font-bold">{item.eventDate}</span>
+                <span className="text-lg font-bold">{new Date(item.eventDate).toISOString().substring(0, 10)}</span>
             </div>
             <div className="mb-4">
                 <label className="text-gray-500 font-semibold">Venue:</label>

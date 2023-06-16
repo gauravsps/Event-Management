@@ -23,20 +23,28 @@ export default function Signup() {
             "role": role
         }
 
-        const res = await fetch(`http://localhost:3000/auth/signup`, {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json, text/plain, */*',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        });
-        console.log(res, "Check Response");
-        const result = await res.json();
-        if (res.ok) {
-            toast.success("Account Created, Please Login");
-            router.push('/login')
+        try {
+
+            const res = await fetch(`http://localhost:3000/auth/signup`, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json, text/plain, */*',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+            console.log(res, "Check Response");
+            const result = await res.json();
+            if (res.ok) {
+                toast.success("Account Created, Please Login");
+                router.push('/login')
+            } else{
+                throw new Error("Something went wrong")
+            }
+        } catch (err: any) {
+            toast.error(err.message)
         }
+
 
     };
 

@@ -1,12 +1,8 @@
-import Image from "next/image";
+
 import Link from "next/link";
-const getEventsData = async () => {
-  const res = await fetch("https://jsonplaceholder.typicode.com/users");
-  return res.json();
-};
 
 export default async function Home() {
-  const events = await getEventsData();
+
   return (
     <main className="">
       <div className="flex justify-center items-center h-screen">

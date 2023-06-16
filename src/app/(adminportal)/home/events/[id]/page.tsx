@@ -20,7 +20,7 @@ interface EventData {
   eventTime: string;
   eventLocation: string;
   eventDescription: string;
-  organizer?: string;
+  eventOrganizer?: any;
   joinee?: []
 }
 
@@ -114,7 +114,7 @@ export default function EventDetails() {
           eventTime: data.eventTime,
           venue: data.eventLocation,
           description: data.eventDescription,
-          organizer: data.organizer ?? "",
+          organizer: data.eventOrganizer.fullName ?? "",
           joinee: data.joinee
         });
       }
