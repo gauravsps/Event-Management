@@ -1,5 +1,6 @@
 "use client"
 
+import { api } from "@/utils/api";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -24,28 +25,17 @@ export default function Signup() {
         }
 
         try {
-
-            const res = await fetch(`https://typeorm.softprodigyphp.in/auth/signup`, {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json, text/plain, */*',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            });
-            console.log(res, "Check Response");
-            const result = await res.json();
+            const res: any = await api({ path: '/auth/signup', method: 'POST', body: data });
+            
             if (res.ok) {
                 toast.success("Account Created, Please Login");
                 router.push('/login')
-            } else{
+            } else {
                 throw new Error("Something went wrong")
             }
         } catch (err: any) {
             toast.error(err.message)
         }
-
-
     };
 
     return (
