@@ -13,7 +13,6 @@ export default function Sidebar({ children }: SidebarProps) {
     const router = useRouter();
     const [role, setRole] = useState<any>('');
     useEffect(() => {
-
         const role = getRole();
         setRole(role)
     }, [])
