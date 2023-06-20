@@ -1,6 +1,6 @@
 "use client"
 import Sidebar from '@/components/CommanSideBar';
-import useSocket from '@/hooks/useSockets';
+import { socket } from '@/hooks/useSockets';
 import { getAuthToken } from '@/utils/auth';
 import { useRouter } from 'next/navigation';
 import React, { useEffect } from 'react'
@@ -12,7 +12,7 @@ export default function AdminLayout({
     children: React.ReactNode
 }) {
     const router = useRouter();
-    const socket = useSocket('https://typeorm.softprodigyphp.in');
+
 
     useEffect(() => {
         const token = getAuthToken();
@@ -25,22 +25,30 @@ export default function AdminLayout({
 
 
     useEffect(() => {
-        if (socket) {
-            socket.on('message', (data) => {
-                // toast.success(data);
-                console.log('connected', data);
-                // Handle the received message data here
-            });
-            socket.on('disconnect', () => {
-                console.log('Socket disconnected');
-              
-                // Perform any additional logic upon socket disconnection
-            });
+        socket.on('connect', () => console.log("connected"));
+        socket.on('disconnect', () => console.log("disconneted"));
+        socket.on('update_event', (data) => {
+            toast.success(`Socket Response - ${data} `)
+        })
+        socket.on('create_event', (data) => {
+            toast.success(`Socket Response - ${data} `)
+        })
+        socket.on('delete_event', (data) => {
+            toast.success(`Socket Response - ${data} `)
+        })
+        socket.on('join_event', (data) => {
+            toast.success(`Socket Response - ${data} `)
+        })
 
-            return () => {
-                socket.disconnect(); // Disconnect on component unmount
-            };
-        }
+        return () => {
+            socket.off('connect');
+            socket.off('disconnect');
+            socket.off('update_event');
+            socket.off('create_event');
+            socket.off('delete_event');
+            socket.off('join_event');
+        };
+
     }, [socket]);
     return (
         <Sidebar>
